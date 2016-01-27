@@ -1,0 +1,32 @@
+* {
+  font-family: ProximaNova-Regular;
+  font-size: 1em;
+}
+th {
+  padding: 1em 0em 0.5em 1em;
+}
+
+thead {
+  border-bottom: 1px solid lightgrey;
+}
+td {
+  padding: 1em;
+  vertical-align: top;
+}
+
+td.middle {
+  vertical-align: top;
+}
+
+td.title {
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.fill {
+  width: 100%;
+}
+
+td ul{
+  font-weight: normal;
+}

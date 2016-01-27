@@ -1,0 +1,46 @@
+<div class="col-md-offset-1">
+  <h1>Table of Books</h1>
+  <form role="form" {{action 'submit' on='submit'}}>
+    <table class="table-striped col-md-8">
+      <thead>
+        <tr>
+          <th class="col-md-4">
+            Title
+          </th>
+          <th class="col-md-2">
+            Author
+          </th>
+          <th class="col-md-6" colspan="2">
+            Description
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each books as |book|}}
+          <tr>
+            <td class="title">
+              {{book.title}}
+              <ul>
+              {{#each things as |thing|}}
+                <a href><li>{{thing.name}}</li></a>
+              {{/each}}
+            </ul>
+            </td>
+            <td>
+              {{book.author}}
+            </td>
+            <td>
+              {{book.description}}
+            </td>
+            <td class="middle">
+              {{#link-to 'books.edit' book class="btn btn-success fill" }}Edit Book{{/link-to}}
+              <a href="" class="btn btn-danger fill" {{action 'deleteBook' book}}>Delete Book</a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </form>
+</div>
+
+{{yield}}
