@@ -23,6 +23,10 @@ td.title {
   font-size: 1em;
 }
 
+.gap {
+    margin-top: 5px;
+}
+
 .fill {
   width: 100%;
 }

@@ -8,33 +8,26 @@
             Title
           </th>
           <th class="col-md-2">
-            Author
+            Director
           </th>
-          <th class="col-md-6" colspan="2">
-            Description
+          <th class="col-md-6">
+            Actors
           </th>
         </tr>
       </thead>
       <tbody>
-        {{#each books as |book|}}
+        {{#each movies as |movie|}}
           <tr>
             <td class="title">
-              {{book.title}}
-              <ul>
-              {{#each things as |thing|}}
-                <a href><li>{{thing.name}}</li></a>
-              {{/each}}
-            </ul>
+              {{movie.title}}
             </td>
             <td>
-              {{book.author}}
+              {{movie.director}}
             </td>
             <td>
-              {{book.description}}
-            </td>
-            <td class="middle">
-              {{#link-to 'books.edit' book class="btn btn-success fill" }}Edit Book{{/link-to}}
-              <a href="" class="btn btn-danger fill" {{action 'deleteBook' book}}>Delete Book</a>
+              {{#each actors as |actor|}}
+														{{actor.name}}
+														{{/each}}
             </td>
           </tr>
         {{/each}}
