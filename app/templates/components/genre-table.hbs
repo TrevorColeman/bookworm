@@ -1,0 +1,47 @@
+<h2>{{genre.name}}</h2>
+{{#each genre.movies as |movie|}}
+<li> *{{movie.title}}</li>
+{{/each}}
+
+{{!--<h2 class="col-md-8">{{genre.name}}</h2>
+<table class="table-striped col-md-8">
+	<thead>
+		<tr>
+			<th class="col-md-3">
+				Title
+			</th>
+			<th class="col-md-2">
+				Director
+			</th>
+			<th class="col-md-2">
+				Actors
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#each genre.movies as |movie|}}
+			<tr>
+				<td class="title">
+					{{movie.title}}
+					<ul>
+						{{#each movie.genres as |movieGenre|}}
+							 <li>
+								{{#link-to 'table.genre' movieGenre}}{{movieGenre.name}}{{/link-to}}
+							</li>
+						{{/each}}
+					</ul>
+				</td>
+				<td>
+					{{movie.director}}
+				</td>
+				<td>
+					<ul>
+						{{#each movie.actors as |actor|}}
+							<li>{{actor.name}}, {{actor.sex}}</li>
+						{{/each}}
+					</ul>
+				</td>
+			</tr>
+		{{/each}}
+	</tbody>
+</table> --}}

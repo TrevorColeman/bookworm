@@ -7,36 +7,37 @@ module.exports = function (app) {
 		id: 1,
 		name: 'Drew Barrymore',
 		sex: 'f',
-		movie_id: 2
+		movie: 2
   }, {
 		id: 2,
 		name: 'Will Ferrel',
 		sex: 'm',
-		movie_id: 4
+		movie: 4
   }, {
 		id: 3,
 		name: 'Paul Rudd',
 		sex: 'm',
-		movie_id: 4
+		movie: 4
   }, {
 		id: 4,
 		name: 'Joseph Cotten',
 		sex: 'm',
-		movie_id: 3
+		movie: 3
   }, {
 		id: 5,
 		name: 'Jack Nicholson',
 		sex: 'm',
-		movie_id: 1
+		movie: 1
   }, {
 		id: 6,
 		name: 'Shelly Duvall',
 		sex: 'f',
-		movie_id: 1
+		movie: 1
   }, {
 		id: 7,
 		name: 'John Turkell',
-		movie_id: 1
+		sex: 'm',
+		movie: 1
   }];
 
 	actorsRouter.get('/', function (req, res) {
@@ -49,7 +50,15 @@ module.exports = function (app) {
 				attributes: {
 					name: item.name,
 					sex: item.sex,
-					movie_id: item.movie_id
+					movie: item.movie
+				},
+				relationships: {
+					data: {
+						movies: {
+							type: 'movies',
+							id: item.movie
+						}
+					}
 				}
 			});
 		});
@@ -67,7 +76,7 @@ module.exports = function (app) {
 		actors.push({
 			name: newActor.name,
 			sex: newActor.sex,
-			movie_id: newActor.movie_id,
+			movie: newActor.movie,
 			id: newId
 		});
 
@@ -82,20 +91,18 @@ module.exports = function (app) {
 	});
 
 	actorsRouter.get('/:id', function (req, res) {
-		var data = [];
+		var data = {};
 		actors.forEach(function (item) {
-			console.log(item, item.id, req.params.id);
-
 			if (item.id === parseInt(req.params.id, 10)) {
-				data.push({
+				data = {
 					type: 'actors',
 					id: item.id.toString(),
 					attributes: {
 						name: item.name,
 						sex: item.sex,
-						movie_id: item.movie_id
+						movie: item.movie
 					}
-				});
+				};
 			}
 		});
 		res.set('Content-Type', 'application/vnd.api+json');
@@ -112,7 +119,7 @@ module.exports = function (app) {
 			if (item.id === parseInt(actorId, 10)) {
 				item.name = actorAttrs.name;
 				item.sex = actorAttrs.sex;
-				item.movie_id = actorAttrs.movie_id;
+				item.movie = actorAttrs.movie;
 			}
 		});
 		res.send({

@@ -7,38 +7,64 @@ module.exports = function (app) {
 			id: 1,
 			title: 'The Shining',
 			director: 'Stanley Kubrick',
-			actors: [5, 6, 7]
+			actors: [5, 6, 7],
+			genres: [1, 3]
   },
 		{
 			id: 2,
 			title: 'ET',
 			director: 'Steven Spielberg',
-			actors: [1]
+			actors: [1],
+			genres: [2, 3]
   },
 		{
 			id: 3,
 			title: 'Citizen Kane',
 			director: 'Orson Wells',
-			actors: [3]
+			actors: [4],
+			genres: [3]
 			},
 		{
 			id: 4,
 			title: 'Anchorman',
 			director: 'Adam McKay',
-			actors: [2, 3]
+			actors: [2, 3],
+			genres: [1]
   }];
 
 	moviesRouter.get('/', function (req, res) {
 		var data = [];
-		var movieActors = [];
 		movies.forEach(function (item) {
+			var actorRelations = [];
+			for (var i = 0; i < item.actors.length; i++) {
+				actorRelations.push({
+					type: 'actors',
+					id: item.actors[i]
+				});
+			}
+
+			var genreRelations = [];
+			for (i = 0; i < item.genres.length; i++) {
+				genreRelations.push({
+					type: 'genres',
+					id: item.genres[i]
+				});
+			}
+
 			data.push({
 				type: 'movies',
-				id: item.id.toString(),
+				id: item.id,
 				attributes: {
 					title: item.title,
-					director: item.director,
-					actors: movieActors
+					director: item.director
+				},
+				relationships: {
+					actors: {
+						data: actorRelations
+					},
+					genres: {
+						data: genreRelations
+					}
 				}
 			});
 		});
@@ -72,17 +98,39 @@ module.exports = function (app) {
 	moviesRouter.get('/:id', function (req, res) {
 		var data = [];
 		movies.forEach(function (item) {
-			console.log(item, item.id, req.params.id);
-
 			if (item.id === parseInt(req.params.id, 10)) {
-				data.push({
+				var actorRelations = [];
+				for (var i = 0; i < item.actors.length; i++) {
+					actorRelations.push({
+						type: 'actors',
+						id: item.actors[i]
+					});
+				}
+
+				var genreRelations = [];
+				for (i = 0; i < item.genres.length; i++) {
+					genreRelations.push({
+						type: 'genres',
+						id: item.genres[i]
+					});
+				}
+
+				data = {
 					type: 'movies',
-					id: item.id.toString(),
+					id: item.id,
 					attributes: {
 						title: item.title,
 						director: item.director
+					},
+					relationships: {
+						actors: {
+							data: actorRelations
+						},
+						genres: {
+							data: genreRelations
+						}
 					}
-				});
+				};
 			}
 		});
 		res.set('Content-Type', 'application/vnd.api+json');

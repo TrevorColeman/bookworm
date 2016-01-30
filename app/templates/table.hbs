@@ -1,39 +1,49 @@
 <div class="col-md-offset-1">
-  <h1>Table of Books</h1>
-  <form role="form" {{action 'submit' on='submit'}}>
-    <table class="table-striped col-md-8">
-      <thead>
-        <tr>
-          <th class="col-md-4">
-            Title
-          </th>
-          <th class="col-md-2">
-            Director
-          </th>
-          <th class="col-md-6">
-            Actors
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each movies as |movie|}}
-          <tr>
-            <td class="title">
-              {{movie.title}}
-            </td>
-            <td>
-              {{movie.director}}
-            </td>
-            <td>
-              {{#each actors as |actor|}}
-														{{actor.name}}
-														{{/each}}
-            </td>
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
-  </form>
+	<h1>Table of Movies</h1>
+	<form role="form" {{action 'submit' on='submit'}}>
+		{{#each genres as |genre|}}
+			<h2 class="col-md-8">{{genre.name}}</h2>
+			<table class="table-striped col-md-8">
+				<thead>
+					<tr>
+						<th class="col-md-3">
+							Title
+						</th>
+						<th class="col-md-2">
+							Director
+						</th>
+						<th class="col-md-2">
+							Actors
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each genre.movies as |movie|}}
+						<tr>
+							<td class="title">
+								{{movie.title}}
+								<ul>
+								{{#each movie.genres as |movieGenre|}}
+									<li>{{movieGenre.name}}</li>
+								{{/each}}
+								</ul>
+							</td>
+							<td>
+								{{movie.director}}
+							</td>
+							<td>
+								<ul>
+									{{#each movie.actors as |actor|}}
+										<li>{{actor.name}}, {{actor.sex}}</li>
+									{{/each}}
+								</ul>
+							</td>
+						</tr>
+					{{/each}}
+				</tbody>
+			</table>
+		{{/each}}
+	</form>
 </div>
 
 {{yield}}
